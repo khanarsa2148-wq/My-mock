@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* CSS remains the same as your original provided code */
+:root{--primary:#1e3a8a;--accent:#2563eb;--danger:#dc2626;--success:#059669;--bg:#f1f5f9;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Inter',sans-serif;background:var(--bg);height:100vh;overflow:hidden;}
+.app{height:100vh;display:flex;flex-direction:column;}
+.header{background: maroon;color:#fff;padding:16px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.2);flex-shrink:0;}
+.header h1{font-size:14px;font-weight:800;letter-spacing:1px;}
+.header p{font-size:11px;opacity:.85;margin-top:3px;}
+.main{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;}
+.card{background:#fff;border-radius:14px;padding:8px;box-shadow:0 8px 30px rgba(0,0,0,.05);margin-bottom:15px;display:flex;flex-direction:column;max-height:65vh;position:relative;}
+#scrollArea{overflow-y:auto;flex:1;margin-bottom:15px;padding-right:8px;}
+.inst-card{background:#eff9ff;border-left:5px solid var(--accent);padding:6px;margin-bottom:10px;border-radius:15px;}
+.inst-card h2{font-size:13px;color:var(--primary);margin-bottom:8px;}
+.inst-card ul{list-style:disc;padding-left:18px;font-size:11px;color:#334155;line-height:1.6;}
+.yt-btn{display:flex;align-items:center;justify-content:center;background: darkgreen;color:#fff;text-decoration:none;padding:12px;border-radius:10px;font-weight:700;font-size:13px;margin-bottom:15px;}
+input,select{width:100%;padding:14px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:15px;margin-bottom:12px;}
+.btn{width:100%;padding:15px;border:none;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer;flex-shrink:0;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-next{background:var(--success);color:#fff;}
+.btn-skip{background:#94a3b8;color:#fff;}
+.timer{background:#fee2e2;color:var(--danger);text-align:center;padding:10px;font-weight:800;font-size:14px;flex-shrink:0;}
+.progress{height:6px;background:#e2e8f0;flex-shrink:0;}
+.progress-bar{height:6px;background:var(--accent);width:0%;transition:width .3s ease;}
+.question{font-size:16px;font-weight:700;margin-bottom:15px;color:#0f172a;line-height:1.4;}
+.option{padding:14px;border:1.5px solid #e2e8f0;border-radius:10px;margin-bottom:10px;cursor:pointer;font-size:14px;background:#fff;transition:0.2s;}
+.option.active{border-color:var(--accent);background:#eff6ff;color:var(--accent);font-weight:600;}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex-shrink:0;padding-top:10px;border-top:1px solid #f1f5f9;}
+#modalOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;}
+.modal-card{background:#fff;width:100%;max-width:320px;border-radius:20px;padding:25px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.3);transform:scale(0.9);transition:0.3s;}
+.modal-card.active{transform:scale(1);}
+.modal-icon{font-size:40px;margin-bottom:15px;}
+.modal-title{font-weight:800;font-size:18px;margin-bottom:10px;color:#1e293b;}
+.modal-text{font-size:14px;color:#64748b;line-height:1.5;margin-bottom:20px;}
+.modal-btn{background:var(--accent);color:#fff;padding:12px 30px;border-radius:8px;border:none;font-weight:700;cursor:pointer;}
+.result{text-align:center;padding:20px;}
+.score{font-size:48px;font-weight:900;color:var(--accent);margin:10px 0;}
+.history-item{text-align:left;border-bottom:1px solid #edf2f7;padding:15px 0;font-size:13px;}
+.history-q{font-weight:700;color:#1a202c;margin-bottom:5px;}
+</style>
+</head>
+<body oncontextmenu="return false;">
+<div id="modalOverlay">
+    <div class="modal-card" id="modalCard"><div class="modal-icon" id="modalIcon">⚠️</div><div class="modal-title" id="modalTitle">Alert</div><div class="modal-text" id="modalText"></div><button class="modal-btn" onclick="closeModal()">OKAY</button></div>
+</div>
+
+<div class="app">
+    <div class="header"><h1>JKBOPEE BSC NURSING 2026/NEET</h1><p>FINAL MOCK 1 | BIOLOGY | BY JK PAPERS</p></div>
+    <div id="screen1" class="main">
+        <a href="https://youtube.com/@jkpapers" target="_blank" class="yt-btn">VISIT YOUTUBE CHANNEL</a>
+        <div class="card">
+            <form onsubmit="event.preventDefault(); validateUser();">
+                <input type="text" id="name" placeholder="Full Name" required>
+                <input type="text" id="parent" placeholder="Parentage" required>
+                <input type="text" id="ro" placeholder="Residence" required>
+                <input type="email" id="email" placeholder="Email Address" required>
+                <select id="attempt" required>
+                    <option value="" disabled selected>JKBOPEE Attempt</option>
+                    <option value="1st Attempt">1st Attempt</option>
+                    <option value="2nd Attempt">2nd Attempt</option>
+                </select>
+                <button type="submit" id="startBtn" class="btn btn-primary">START EXAMINATION</button>
+            </form>
+        </div>
+    </div>
+    <div id="screen2" style="display:none;flex:1;flex-direction:column;">
+        <div class="timer" id="timer">TIME: 60s</div>
+        <div class="progress"><div class="progress-bar" id="progress"></div></div>
+        <div class="main"><div class="card"><div id="scrollArea"><div id="questionBox"></div></div><div class="controls"><button class="btn btn-skip" onclick="handleNext(true)">SKIP</button><button class="btn btn-next" onclick="handleNext(false)">SAVE & NEXT</button></div></div></div>
+    </div>
+    <div id="screen3" class="main" style="display:none;"><div class="card result" style="max-height: 90vh;"><p>TOTAL SCORE</p><div class="score" id="finalScore">0</div><div id="review" style="overflow-y:auto; text-align: left; flex:1;"></div></div></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
