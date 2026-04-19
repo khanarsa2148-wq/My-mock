@@ -117,7 +117,7 @@
         <div class="card result" style="max-height: 90vh;">
             <p>TOTAL SCORE</p>
             <div class="score" id="finalScore">0</div>
-            <div id="statusMsg" style="font-size:12px; margin-bottom:10px; color: var(--success);">Connecting to database...</div>
+            <div id="statusMsg" style="font-size:12px; margin-bottom:10px; color: var(--success);"></div>
             <p style="font-weight:700; color:#4a5568; margin-bottom: 15px;">EXAM REVIEW</p>
             <div id="review" style="overflow-y:auto; text-align: left; flex:1;"></div>
         </div>
@@ -276,9 +276,9 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: params.toString()
             });
-            document.getElementById('statusMsg').innerText = "✅ Result successfully saved.";
+            document.getElementById('statusMsg').innerText = "";
         } catch(e) {
-            document.getElementById('statusMsg').innerText = "❌ Network error. Result not saved.";
+            document.getElementById('statusMsg').innerText = "";
             document.getElementById('statusMsg').style.color = "var(--danger)";
         }
     }
